@@ -1,0 +1,3 @@
+[submodule "learning-langchain-studyco/langchain"]
+	path = learning-langchain-studyco/langchain
+	url = git@github.com:hwchase17/langchain.git
