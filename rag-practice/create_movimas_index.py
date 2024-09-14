@@ -1,8 +1,6 @@
 from langchain_chroma import Chroma
 from langchain_community.document_loaders import TextLoader
-from langchain_community.embeddings.sentence_transformer import (
-    SentenceTransformerEmbeddings,
-)
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import CharacterTextSplitter
 from langchain_text_splitters.character import _split_text_with_regex
 from tqdm import tqdm
@@ -23,7 +21,7 @@ text_splitter = MyCharacterTextSplitter(separator="\n")
 docs = text_splitter.split_documents(documents)
 print(f"{len(docs)=}")
 
-embedding_function = SentenceTransformerEmbeddings(
+embedding_function = HuggingFaceEmbeddings(
     model_name="stsb-xlm-r-multilingual"
 )
 

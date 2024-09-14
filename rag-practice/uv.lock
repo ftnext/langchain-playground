@@ -778,6 +778,22 @@ wheels = [
 ]
 
 [[package]]
+name = "langchain-huggingface"
+version = "0.0.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "huggingface-hub" },
+    { name = "langchain-core" },
+    { name = "sentence-transformers" },
+    { name = "tokenizers" },
+    { name = "transformers" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e5/fd/52af613b26fdb565d0b49fd20aad554660b0b019a42e6db55061308084b0/langchain_huggingface-0.0.3.tar.gz", hash = "sha256:0637acf484c47323cf3dcc46745a93467f6955989af9b7c01e2382fe1b630aaf", size = 13140 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/39/ce/ad7f50a6289cf562747df9a966b4d60a848571db2e57ad8d00dca2478096/langchain_huggingface-0.0.3-py3-none-any.whl", hash = "sha256:d6827adf3c7c8fcc0bca8c43c7e900c3bf68af9a1532a83d4b8ace137e02887e", size = 17802 },
+]
+
+[[package]]
 name = "langchain-text-splitters"
 version = "0.2.4"
 source = { registry = "https://pypi.org/simple" }
@@ -1601,7 +1617,7 @@ dependencies = [
     { name = "langchain" },
     { name = "langchain-chroma" },
     { name = "langchain-community" },
-    { name = "sentence-transformers" },
+    { name = "langchain-huggingface" },
     { name = "tqdm" },
 ]
 
@@ -1610,7 +1626,7 @@ requires-dist = [
     { name = "langchain", specifier = "<0.3" },
     { name = "langchain-chroma", specifier = ">=0.1.4" },
     { name = "langchain-community", specifier = ">=0.2.17" },
-    { name = "sentence-transformers", specifier = ">=3.1.0" },
+    { name = "langchain-huggingface", specifier = ">=0.0.3" },
     { name = "tqdm", specifier = ">=4.66.5" },
 ]
 
