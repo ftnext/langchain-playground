@@ -1,12 +1,10 @@
-from langchain.document_loaders import TextLoader
-from langchain.embeddings.sentence_transformer import (
+from langchain_chroma import Chroma
+from langchain_community.document_loaders import TextLoader
+from langchain_community.embeddings.sentence_transformer import (
     SentenceTransformerEmbeddings,
 )
-from langchain.text_splitter import (
-    CharacterTextSplitter,
-    _split_text_with_regex,
-)
-from langchain.vectorstores import Chroma
+from langchain_text_splitters import CharacterTextSplitter
+from langchain_text_splitters.character import _split_text_with_regex
 from tqdm import tqdm
 
 
@@ -32,4 +30,3 @@ embedding_function = SentenceTransformerEmbeddings(
 db = Chroma.from_documents(
     tqdm(docs), embedding_function, persist_directory="./imas_chroma_db"
 )
-db.persist()
