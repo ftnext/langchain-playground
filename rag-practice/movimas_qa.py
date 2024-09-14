@@ -1,14 +1,12 @@
 import langchain
 from langchain.chains import RetrievalQA
-from langchain.chat_models import ChatOpenAI
-from langchain.embeddings.sentence_transformer import (
-    SentenceTransformerEmbeddings,
-)
-from langchain.vectorstores import Chroma
+from langchain_chroma import Chroma
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_openai import ChatOpenAI
 
 langchain.verbose = True
 
-embedding_function = SentenceTransformerEmbeddings(
+embedding_function = HuggingFaceEmbeddings(
     model_name="stsb-xlm-r-multilingual"
 )
 db = Chroma(
