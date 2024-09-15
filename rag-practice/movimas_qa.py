@@ -1,10 +1,16 @@
-import langchain
-from langchain.chains import RetrievalQA
+from pprint import pprint
+
+from langchain.chains import create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain.chains.question_answering.stuff_prompt import system_template
 from langchain_chroma import Chroma
+from langchain_core.prompts import (
+    ChatPromptTemplate,
+    HumanMessagePromptTemplate,
+    SystemMessagePromptTemplate,
+)
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_openai import ChatOpenAI
-
-langchain.verbose = True
 
 embedding_function = HuggingFaceEmbeddings(
     model_name="stsb-xlm-r-multilingual",
@@ -15,15 +21,23 @@ db = Chroma(
     embedding_function=embedding_function,
 )
 
+# ref: langchain.chains.question_answering.stuff_prompt.CHAT_PROMPT
+# fix KeyError: "Input to ChatPromptTemplate is missing variables {'question'}.  Expected: ['context', 'question'] Received: ['input', 'context']
+messages = [
+    SystemMessagePromptTemplate.from_template(system_template),
+    HumanMessagePromptTemplate.from_template("{input}"),
+]
+CHAT_PROMPT = ChatPromptTemplate.from_messages(messages)
 chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
-qa = RetrievalQA.from_chain_type(
-    llm=chat, chain_type="stuff", retriever=db.as_retriever()
-)
+combine_docs_chain = create_stuff_documents_chain(chat, CHAT_PROMPT)
+rag_chain = create_retrieval_chain(db.as_retriever(), combine_docs_chain)
 
 while True:
     sentence = input("入力してください: ")
     if not sentence.strip():
         continue
-    result = qa.invoke(sentence)
-    print(result["result"])
+    result = rag_chain.invoke({"input": sentence})
+    pprint(result, sort_dicts=False)
+    print()
+    print(result["answer"])
     print()
