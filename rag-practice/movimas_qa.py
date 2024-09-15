@@ -24,6 +24,6 @@ while True:
     sentence = input("入力してください: ")
     if not sentence.strip():
         continue
-    result = qa.run(sentence)
-    print(result)
+    result = qa.invoke(sentence)
+    print(result["result"])
     print()
