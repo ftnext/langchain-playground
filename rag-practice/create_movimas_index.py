@@ -22,7 +22,8 @@ docs = text_splitter.split_documents(documents)
 print(f"{len(docs)=}")
 
 embedding_function = HuggingFaceEmbeddings(
-    model_name="stsb-xlm-r-multilingual"
+    model_name="stsb-xlm-r-multilingual",
+    model_kwargs={"revision": "bc1a68705f2e397259207e96349a36ccbc7e6493"},
 )
 
 db = Chroma.from_documents(

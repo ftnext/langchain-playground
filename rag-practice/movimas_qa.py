@@ -7,7 +7,8 @@ from langchain_openai import ChatOpenAI
 langchain.verbose = True
 
 embedding_function = HuggingFaceEmbeddings(
-    model_name="stsb-xlm-r-multilingual"
+    model_name="stsb-xlm-r-multilingual",
+    model_kwargs={"revision": "bc1a68705f2e397259207e96349a36ccbc7e6493"},
 )
 db = Chroma(
     persist_directory="./imas_chroma_db",
